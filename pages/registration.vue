@@ -37,6 +37,14 @@ export default {
       successSnackbar: false
     }
   },
+  created(){
+    if (process.browser) {
+      if (localStorage.getItem("username")) {
+        this.$router.push({ path: "/" })
+        this.$store.commit("setIsAuth", true)
+      }
+    }
+  },
   methods: {
     submit() {
       if (!this.username) {
