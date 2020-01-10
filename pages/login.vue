@@ -8,6 +8,7 @@
       </v-form>
       <v-card-actions>
         <v-spacer />
+        <v-btn class="mr-3 mb-3" link to="/registration">Sign Up</v-btn>
         <v-btn class="mr-3 mb-3" color="green" style="color:white" @click="submit">Login</v-btn>
         <!-- <v-btn class="mr-3 mb-3" @click="submit">Register</v-btn> -->
       </v-card-actions>
@@ -32,7 +33,6 @@
 import { mapState } from "vuex"
 
 export default {
-  // mixins : [redirectHomeMixin] ,
   data() {
     return {
       username: "",
