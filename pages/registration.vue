@@ -27,6 +27,7 @@
 
 <script>
 export default {
+  layout : "center" ,
   data() {
     return {
       username: "",

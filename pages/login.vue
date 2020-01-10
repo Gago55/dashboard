@@ -33,6 +33,7 @@
 import { mapState } from "vuex"
 
 export default {
+  layout : "center" ,
   data() {
     return {
       username: "",
