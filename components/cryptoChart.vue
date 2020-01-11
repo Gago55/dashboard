@@ -1,0 +1,135 @@
+<template>
+  <v-card style="padding-left:3%" width="1500">
+      <v-card-title>BTC -> USD</v-card-title>
+      <v-row>
+        <v-col cols="9">
+            <v-sheet color="rgba(0, 0, 0, .12)" height="370">
+            <v-sparkline
+            :value="data.values"
+            :labels="data.labels"
+            label-size="4"
+            color="rgba(255, 255, 255, .7)"
+
+            line-width=".6" 
+            padding="10"
+            >
+
+            </v-sparkline>
+            </v-sheet>
+        </v-col>
+        <v-col cols="3">
+            <v-date-picker v-model="dateRange" range></v-date-picker>
+        </v-col>
+      </v-row>
+    </v-card>
+</template>
+
+<script>
+import axios from "axios"
+
+export default {
+    data:()=>({
+        data:{
+            values: [7183.88,7189.94,6965.72,7339.7,7357.5,7359.96,7762.69,8160.36,8045.15,7817.35],
+            labels: ["$7183.88","$7189.94","$6965.72","$7339.7","$7357.5","$7359.96","$7762.69","$8160.36","$8045.15","$7817.35"]
+        },
+        dateRange:["2020-01-01" ,"2020-01-10" ]
+    }),
+    watch:{
+        dateRange(value){
+            if(value.length === 2){
+                if(this.checkData()){
+                    this.checkDaysCount()
+                    this.getData()
+                }
+            }
+        }
+    },
+    methods:{
+        checkData(){ 
+            let date1 = new Date(this.dateRange[0]).getTime() / 1000 //Get unix timestamp
+            let date2 = new Date(this.dateRange[1]).getTime() / 1000 //Get unix timestamp
+
+            let currentData = new Date().getTime()/1000
+
+            let to = date1 > date2 ? date1 : date2
+            let from = date1 < date2 ? date1 : date2
+
+            if(from > currentData)
+                return false
+            
+            if(to <= currentData)
+                return true
+            else{
+                let newRange = []
+
+                newRange.push(this.getDateStringFromTimestamp(from))
+                newRange.push(this.getDateStringFromTimestamp(currentData))
+                this.dateRange = newRange
+
+                return true
+            }
+            
+        },
+        checkDaysCount(){
+            let limit = 10
+
+            let date1 = new Date(this.dateRange[0]).getTime() / 1000 //Get unix timestamp
+            let date2 = new Date(this.dateRange[1]).getTime() / 1000 //Get unix timestamp
+            
+            let currentData = new Date().getTime()/1000
+
+            let to = date1 > date2 ? date1 : date2
+            let from = date1 < date2 ? date1 : date2
+            let daysCount = Math.abs(date1-date2)/(60*60*24)
+
+            if(daysCount > limit){
+                let newToDate = from + (60*60*24) * (limit - 1)  
+                let newRange = []
+                newRange.push(this.getDateStringFromTimestamp(from))
+                newRange.push(this.getDateStringFromTimestamp(newToDate))
+                this.dateRange = newRange
+            }
+        },
+        getDateStringFromTimestamp(time){
+            let year = new Date(time * 1000).getFullYear()
+            let month = new Date(time * 1000).getMonth() + 1
+            let day = new Date(time * 1000).getDate()
+
+            month = month.toString().length > 1 ? month : "0" + month 
+            day = day.toString().length > 1 ? day : "0" + day
+            
+            return `${year}-${month}-${day}`
+        },
+        getData(){
+            let date1 = new Date(this.dateRange[0]).getTime() / 1000 //Get unix timestamp
+            let date2 = new Date(this.dateRange[1]).getTime() / 1000 //Get unix timestamp
+
+            let to = date1 > date2 ? date1 : date2
+            let daysCount = Math.abs(date1-date2)/(60*60*24)
+            
+            axios.get(`https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=USD&limit=${daysCount}&toTs=${to}` , { 
+                authorization: "35e71bf39ce066a87cc504b0f0143498c2b0b146876c56a9cf0fde9b764d1836"
+            }).then(
+                (response)=>{
+                let data = response.data.Data.Data
+                let values = []
+                let labels = []
+                // debugger
+                data.forEach( d => {
+                    let time = new Date(d.time * 1000)
+                    values.push(d.open)
+                    labels.push( "$" + d.open )//+ "\n" + time.getDate() + "/" + (time.getMonth() + 1) )
+                })
+                this.data.values = values
+                this.data.labels = labels
+                }
+            )
+        }
+    }
+}
+</script>
+
+<style>
+
+</style>
