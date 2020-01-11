@@ -8,7 +8,9 @@
     </v-app-bar>
 
     <v-row align="center" justify="center">
-      <cryptoChart class="mt-5"/>
+      <cryptoChart class="mt-5" fromCurrency="BTC" toCurrency="USD" toCurrencySymbol="$"/>
+      <cryptoChart class="mt-5" fromCurrency="ETH" toCurrency="EUR" toCurrencySymbol="€" fill round/>
+      <cryptoChart class="mt-5" fromCurrency="XRP" toCurrency="AMD" toCurrencySymbol="֏" round />
     </v-row>
 
     <div v-if="!this.$store.getters.getIsAuth">
