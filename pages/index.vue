@@ -35,18 +35,18 @@
         <cryptoChart :dateRange="date" fromCurrency="BTC" toCurrency="USD" toCurrencySymbol="$" />
       </v-col>
       <v-col cols="4">
-        <cryptoChart :dateRange="date" fromCurrency="ETH" toCurrency="EUR" toCurrencySymbol="€" fill round/>
+        <barChart :dateRange="date" fromCurrency="ETH" toCurrency="EUR"/>
       </v-col>
       <v-col cols="4">
-        <cryptoChart :dateRange="date" fromCurrency="XRP" toCurrency="AMD" toCurrencySymbol="֏" round />
+        <lineChart :dateRange="date" fromCurrency="XRP" toCurrency="AMD" color="#ffff00"/>
       </v-col>
     </v-row>
 </div>
 
 <div class="mx-5 hidden-md-and-up">
         <cryptoChart class="mb-5" :dateRange="date" fromCurrency="BTC" toCurrency="USD" toCurrencySymbol="$" />
-        <cryptoChart class="mb-5" :dateRange="date" fromCurrency="ETH" toCurrency="EUR" toCurrencySymbol="€" fill round/>
-        <cryptoChart class="mb-5" :dateRange="date" fromCurrency="XRP" toCurrency="AMD" toCurrencySymbol="֏" round />
+        <barChart class="mb-5" :dateRange="date" fromCurrency="ETH" toCurrency="EUR" />
+        <lineChart class="mb-5" :dateRange="date" fromCurrency="XRP" toCurrency="AMD"  color="#ffff00"/>
 </div>
 
     <div v-if="!this.$store.getters.getIsAuth">
@@ -57,10 +57,12 @@
 
 <script>
 import cryptoChart from "@/components/cryptoChart";
+import barChart from "@/components/barChart";
+import lineChart from "@/components/lineChart";
 
 export default {
   components: {
-    cryptoChart
+    cryptoChart,barChart,lineChart
   },
   data: () => ({
     username: process.browser ? localStorage.getItem("username") : "",
