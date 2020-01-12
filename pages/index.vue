@@ -8,9 +8,31 @@
     </v-app-bar>
 
     <v-row align="center" justify="center">
-      <cryptoChart class="mt-5" fromCurrency="BTC" toCurrency="USD" toCurrencySymbol="$"/>
-      <cryptoChart class="mt-5" fromCurrency="ETH" toCurrency="EUR" toCurrencySymbol="€" fill round/>
-      <cryptoChart class="mt-5" fromCurrency="XRP" toCurrency="AMD" toCurrencySymbol="֏" round />
+      <v-menu
+        ref="menu"
+        v-model="menu"
+        :close-on-content-click="false"
+        :return-value.sync="date"
+        transition="scale-transition"
+        offset-y
+      >
+        <template v-slot:activator="{ on }">
+          <div class="mt-2">
+            <v-text-field v-model="date" label="Pick Range" readonly v-on="on"></v-text-field>
+          </div>
+        </template>
+        <v-date-picker v-model="date" no-title range>
+          <v-spacer></v-spacer>
+          <v-btn text color="primary" @click="menu = false">Cancel</v-btn>
+          <v-btn text color="primary" @click="$refs.menu.save(date)">OK</v-btn>
+        </v-date-picker>
+      </v-menu>
+    </v-row>
+
+    <v-row align="center" justify="center">
+      <cryptoChart class="mt-5" :dateRange="date" fromCurrency="BTC" toCurrency="USD" toCurrencySymbol="$" />
+      <cryptoChart class="mt-5" :dateRange="date" fromCurrency="ETH" toCurrency="EUR" toCurrencySymbol="€" fill round/>
+      <cryptoChart class="mt-5" :dateRange="date" fromCurrency="XRP" toCurrency="AMD" toCurrencySymbol="֏" round />
     </v-row>
 
     <div v-if="!this.$store.getters.getIsAuth">
@@ -20,15 +42,16 @@
 </template>
 
 <script>
-import cryptoChart from "@/components/cryptoChart"
+import cryptoChart from "@/components/cryptoChart";
 
 export default {
-  components:{
+  components: {
     cryptoChart
   },
   data: () => ({
-    username: process.browser ? localStorage.getItem("username") : "" ,
-
+    username: process.browser ? localStorage.getItem("username") : "",
+    menu: false,
+    date: ["2020-01-01", "2020-01-10"]
   }),
   created() {
     if (process.browser) {
@@ -49,8 +72,7 @@ export default {
     logout() {
       localStorage.removeItem("username");
       this.$store.commit("setIsAuth", false);
-    },
-    
+    }
   }
 };
 </script>

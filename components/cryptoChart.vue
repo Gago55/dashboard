@@ -20,7 +20,7 @@
             </v-sheet>
         </v-col>
         <v-col cols="3">
-            <v-date-picker v-model="dateRange" range></v-date-picker>
+            <!-- <v-date-picker v-model="dateRange" range></v-date-picker> -->
         </v-col>
       </v-row>
     </v-card>
@@ -31,6 +31,10 @@ import axios from "axios"
 
 export default {
     props:{
+        dateRange:{
+            type:Array,
+            required:true
+        },
         fromCurrency:{
             type:String,
             required:true
@@ -61,7 +65,7 @@ export default {
             values: [],
             labels: []
         },
-        dateRange:["2020-01-01" ,"2020-01-10" ]
+        // dateRange:["2020-01-01" ,"2020-01-10" ]
     }),
     created(){
         this.getData()
@@ -70,7 +74,7 @@ export default {
         dateRange(value){
             if(value.length === 2){
                 if(this.checkData()){
-                    this.checkDaysCount()
+                    // this.checkDaysCount()
                     this.getData()
                 }
             }
