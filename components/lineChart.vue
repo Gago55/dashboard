@@ -1,5 +1,5 @@
 <template>
-  <v-card class="px-2 pb-2" style="border-radius:25px">
+  <v-card class="px-2 pb-2" style="border-radius:15px">
     <v-card-title>{{fromCurrency}} → {{toCurrency}}</v-card-title>
     <canvas ref="canvas"></canvas>
   </v-card>
@@ -27,6 +27,10 @@ export default {
     color:{
         type:String,
         default:"#f87979"
+    },
+    fill:{
+      type:Boolean,
+      default:false
     }
   },
   data() {
@@ -37,13 +41,15 @@ export default {
           {
             label: this.toCurrency,
             backgroundColor: this.color,
+            fill: this.fill,
             data: []
           }
         ]
       },
       options: {
         responsive: true,
-        maintainAspectRatio: true
+        maintainAspectRatio: true,
+        area:false
       }
     }
   },

@@ -5,6 +5,10 @@ export default {
   /*
   ** Headers of the page
   */
+//  router: {
+//   base: '/dashboard/'
+// },
+
   head: {
     titleTemplate: '%s - ' + process.env.npm_package_name,
     title: process.env.npm_package_name || '',
@@ -49,7 +53,7 @@ export default {
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     theme: {
-      dark: true,
+      // dark: true,
       themes: {
         dark: {
           primary: colors.blue.darken2,

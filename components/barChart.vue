@@ -1,5 +1,5 @@
 <template>
-  <v-card class="px-2 pb-2" style="border-radius:25px">
+  <v-card class="px-2 pb-2" style="border-radius:15px">
     <v-card-title>{{fromCurrency}} → {{toCurrency}}</v-card-title>
     <canvas ref="canvas"></canvas>
   </v-card>

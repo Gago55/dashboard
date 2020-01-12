@@ -9,8 +9,8 @@
       </v-form>
       <v-card-actions>
         <v-spacer />
-        <v-btn class="mr-3 mb-3" link to="/login">Login</v-btn>
-        <v-btn class="mr-3 mb-3" @click="submit">Register</v-btn>
+        <v-btn class="mr-3 mb-3" dark link to="/login">Login</v-btn>
+        <v-btn class="mr-3 mb-3" color="green" style="color:white" @click="submit">Register</v-btn>
       </v-card-actions>
     </v-card>
 
