@@ -140,7 +140,8 @@ export default {
             this.chartdata.datasets[0].data = values
             this.chartdata.labels = labels
 
-            this.renderChart(this.chartdata, this.options)
+            if(this.$store.getters.getIsAuth)
+              this.renderChart(this.chartdata, this.options)
           }
         })
     }
