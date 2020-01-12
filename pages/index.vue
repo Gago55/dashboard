@@ -32,33 +32,32 @@
 <div class="mx-5 hidden-sm-and-down">
     <v-row align="center" justify="center">
       <v-col cols="4">
-        <cryptoChart :dateRange="date" fromCurrency="BTC" toCurrency="USD" toCurrencySymbol="$" />
+        <!-- <cryptoChart :dateRange="date" fromCurrency="BTC" toCurrency="USD" toCurrencySymbol="$" /> -->
+        <lineChart :dateRange="date" fromCurrency="BTC" toCurrency="USD" color="#0000ff"/>
       </v-col>
       <v-col cols="4">
         <barChart :dateRange="date" fromCurrency="ETH" toCurrency="EUR"/>
       </v-col>
       <v-col cols="4">
-        <lineChart :dateRange="date" fromCurrency="XRP" toCurrency="AMD" color="#ffff00"/>
+        <lineChart :dateRange="date" fromCurrency="XRP" toCurrency="AMD" color="#ffff85" fill/>
       </v-col>
     </v-row>
 </div>
 
 <div class="mx-5 hidden-md-and-up">
-        <cryptoChart class="mb-5" :dateRange="date" fromCurrency="BTC" toCurrency="USD" toCurrencySymbol="$" />
+        <lineChart class="mb-5" :dateRange="date" fromCurrency="BTC" toCurrency="USD" color="#0000ff" />
         <barChart class="mb-5" :dateRange="date" fromCurrency="ETH" toCurrency="EUR" />
-        <lineChart class="mb-5" :dateRange="date" fromCurrency="XRP" toCurrency="AMD"  color="#ffff00"/>
+        <lineChart class="mb-5" :dateRange="date" fromCurrency="XRP" toCurrency="AMD"  color="#ffff85" fill/>
 </div>
 
-    <div v-if="!this.$store.getters.getIsAuth">
-      <!-- For update when isAuth changed -->
-    </div>
   </div>
 </template>
 
 <script>
-import cryptoChart from "@/components/cryptoChart";
-import barChart from "@/components/barChart";
-import lineChart from "@/components/lineChart";
+import cryptoChart from "@/components/cryptoChart"
+import barChart from "@/components/barChart"
+import lineChart from "@/components/lineChart"
+import { mapState } from "vuex"
 
 export default {
   components: {
@@ -69,6 +68,9 @@ export default {
     menu: false,
     date: ["2020-01-01", "2020-01-10"]
   }),
+  computed: {
+    ...mapState(["isAuth"])
+  },
   created() {
     if (process.browser) {
       if (!localStorage.getItem("username")) {
@@ -79,19 +81,21 @@ export default {
       }
     }
   },
-  updated() {
-    if (!this.$store.getters.getIsAuth) {
-      this.$router.push({ path: "/login" });
-    }
+  watch:{
+    isAuth(value){
+      if (!value) {
+      this.$router.push({ path: "/login" })
+      }
+    } 
   },
   methods: {
     onclick() {
-      this.$store.commit("addUser", { username: "gag", password: "fuck" });
+      this.$store.commit("addUser", { username: "gag", password: "fuck" })
     },
     logout() {
-      localStorage.removeItem("username");
-      this.$store.commit("setIsAuth", false);
+      localStorage.removeItem("username")
+      this.$store.commit("setIsAuth", false)
     }
   }
-};
+}
 </script>

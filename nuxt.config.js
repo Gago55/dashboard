@@ -5,9 +5,9 @@ export default {
   /*
   ** Headers of the page
   */
-//  router: {
-//   base: '/dashboard/'
-// },
+ router: {
+  // base: '/dashboard/'
+},
 
   head: {
     titleTemplate: '%s - ' + process.env.npm_package_name,

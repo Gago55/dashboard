@@ -50,7 +50,8 @@ export default {
         responsive: true,
         maintainAspectRatio: true,
         area:false
-      }
+      },
+      clearRange: this.dateRange
     }
   },
   mounted() {
@@ -85,7 +86,7 @@ export default {
 
         newRange.push(this.getDateStringFromTimestamp(from))
         newRange.push(this.getDateStringFromTimestamp(currentData))
-        this.dateRange = newRange
+        this.clearRange = newRange
 
         return true
       }

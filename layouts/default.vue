@@ -6,8 +6,8 @@
 
 <script>
 export default {
-  data() {
-    return {}
+ created(){
+    this.$vuetify.theme.dark = false
   }
 }
 </script>

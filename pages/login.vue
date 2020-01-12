@@ -10,7 +10,6 @@
         <v-spacer />
         <v-btn class="mr-3 mb-3" link to="/registration">Sign Up</v-btn>
         <v-btn class="mr-3 mb-3" color="green" style="color:white" @click="submit">Login</v-btn>
-        <!-- <v-btn class="mr-3 mb-3" @click="submit">Register</v-btn> -->
       </v-card-actions>
     </v-card>
 
@@ -23,9 +22,7 @@
       Login or Password is incorrect
       <v-btn text @click="closeLoginErrorWarning">Close</v-btn>
     </v-snackbar>
-    <div v-if="isAuth">
-      <!-- For update when isAuth changed -->
-    </div>
+
   </div>
 </template>
 
@@ -50,13 +47,14 @@ export default {
       }
     }
   },
-  updated() {
-    if (this.isAuth) {
-      this.$router.push({ path: "/" })
-    }
-  },
   computed: {
     ...mapState(["isAuth", "loginError"])
+  },
+  watch:{
+    isAuth(value){
+      if(value)
+        this.$router.push({ path: "/" })
+    }
   },
   methods: {
     submit() {

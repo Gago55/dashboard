@@ -45,12 +45,11 @@ export default {
         responsive: true,
         maintainAspectRatio: true
       },
-      alreadyMounted: false
+      clearRange: this.dateRange
     }
   },
   mounted() {
     this.getData()
-    this.alreadyMounted = true
     // this.renderChart(this.chartdata, this.options)
   },
   watch: {
@@ -81,7 +80,7 @@ export default {
 
         newRange.push(this.getDateStringFromTimestamp(from))
         newRange.push(this.getDateStringFromTimestamp(currentData))
-        this.dateRange = newRange
+        this.clearRange = newRange
 
         return true
       }
