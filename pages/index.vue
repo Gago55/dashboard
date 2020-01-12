@@ -29,11 +29,25 @@
       </v-menu>
     </v-row>
 
+<div class="mx-5 hidden-sm-and-down">
     <v-row align="center" justify="center">
-      <cryptoChart class="mt-5" :dateRange="date" fromCurrency="BTC" toCurrency="USD" toCurrencySymbol="$" />
-      <cryptoChart class="mt-5" :dateRange="date" fromCurrency="ETH" toCurrency="EUR" toCurrencySymbol="€" fill round/>
-      <cryptoChart class="mt-5" :dateRange="date" fromCurrency="XRP" toCurrency="AMD" toCurrencySymbol="֏" round />
+      <v-col cols="4">
+        <cryptoChart :dateRange="date" fromCurrency="BTC" toCurrency="USD" toCurrencySymbol="$" />
+      </v-col>
+      <v-col cols="4">
+        <cryptoChart :dateRange="date" fromCurrency="ETH" toCurrency="EUR" toCurrencySymbol="€" fill round/>
+      </v-col>
+      <v-col cols="4">
+        <cryptoChart :dateRange="date" fromCurrency="XRP" toCurrency="AMD" toCurrencySymbol="֏" round />
+      </v-col>
     </v-row>
+</div>
+
+<div class="mx-5 hidden-md-and-up">
+        <cryptoChart class="mb-5" :dateRange="date" fromCurrency="BTC" toCurrency="USD" toCurrencySymbol="$" />
+        <cryptoChart class="mb-5" :dateRange="date" fromCurrency="ETH" toCurrency="EUR" toCurrencySymbol="€" fill round/>
+        <cryptoChart class="mb-5" :dateRange="date" fromCurrency="XRP" toCurrency="AMD" toCurrencySymbol="֏" round />
+</div>
 
     <div v-if="!this.$store.getters.getIsAuth">
       <!-- For update when isAuth changed -->
@@ -56,7 +70,10 @@ export default {
   created() {
     if (process.browser) {
       if (!localStorage.getItem("username")) {
-        this.$router.push({ path: "/login" });
+        this.$router.push({ path: "/login" })
+      }
+      else{
+        this.$store.commit("setIsAuth" , true)
       }
     }
   },

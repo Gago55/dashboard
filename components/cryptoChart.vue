@@ -1,9 +1,7 @@
 <template>
-  <v-card style="padding-left:3% ;border-radius:25px" width="1500" >
+  <v-card class="px-2 pb-2" style="border-radius:25px">
       <v-card-title>{{fromCurrency}} → {{toCurrency}}</v-card-title>
-      <v-row>
-        <v-col cols="9">
-            <v-sheet color="rgba(0, 0, 0, .12)" height="380"  >
+            <v-sheet color="rgba(0, 0, 0, .12)"  >
             <v-sparkline
             :value="data.values"
             :labels="data.labels"
@@ -18,11 +16,6 @@
 
             </v-sparkline>
             </v-sheet>
-        </v-col>
-        <v-col cols="3">
-            <!-- <v-date-picker v-model="dateRange" range></v-date-picker> -->
-        </v-col>
-      </v-row>
     </v-card>
 </template>
 
