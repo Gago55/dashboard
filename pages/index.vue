@@ -86,9 +86,6 @@ export default {
     } 
   },
   methods: {
-    onclick() {
-      this.$store.commit("addUser", { username: "gag", password: "fuck" })
-    },
     logout() {
       localStorage.removeItem("username")
       this.$store.commit("setIsAuth", false)
