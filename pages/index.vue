@@ -54,15 +54,12 @@
 </template>
 
 <script>
-import cryptoChart from "@/components/cryptoChart"
 import barChart from "@/components/barChart"
 import lineChart from "@/components/lineChart"
 import { mapState } from "vuex"
 
 export default {
-  components: {
-    cryptoChart,barChart,lineChart
-  },
+  components: { barChart,lineChart },
   data: () => ({
     username: process.browser ? localStorage.getItem("username") : "",
     menu: false,
@@ -84,7 +81,7 @@ export default {
   watch:{
     isAuth(value){
       if (!value) {
-      this.$router.push({ path: "/login" })
+        this.$router.push({ path: "/login" })
       }
     } 
   },
