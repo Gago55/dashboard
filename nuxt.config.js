@@ -45,7 +45,16 @@ export default {
   ** Nuxt.js modules
   */
   modules: [
+    "@nuxtjs/axios"
   ],
+
+  axios:{
+    baseUrl:"https://min-api.cryptocompare.com/data/v2/",
+    browserBaseURL:"https://min-api.cryptocompare.com/data/v2/",
+    headers:{
+        authorization: "35e71bf39ce066a87cc504b0f0143498c2b0b146876c56a9cf0fde9b764d1836"
+    }
+  },
   /*
   ** vuetify module configuration
   ** https://github.com/nuxt-community/vuetify-module
